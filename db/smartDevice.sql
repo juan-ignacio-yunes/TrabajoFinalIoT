@@ -78,10 +78,11 @@ INSERT INTO dispositivos (device_nombre, modelo) VALUES
 --
 
 CREATE TABLE usuarios (
+  user_id int NOT NULL AUTO_INCREMENT,
   user_email varchar(50) NOT NULL,
   contraseña varchar(50) NOT NULL,
   user_nombre varchar(50) DEFAULT NULL,
-  PRIMARY KEY (user_email)
+  PRIMARY KEY (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
@@ -124,23 +125,23 @@ INSERT INTO mediciones (pet_id, fechaHora_medicion, valor) VALUES
 
 CREATE TABLE relaciones (
   relation_id int NOT NULL AUTO_INCREMENT,
-  pet_id int DEFAULT NULL, -- no siempre ba a estar relacionado algún animal. Por ejemplo, cuando reién se conecta un usrui a un alientador
+  pet_id int DEFAULT NULL, -- no siempre bva a estar relacionado algún animal. Por ejemplo, cuando reién se conecta un usuario a un alientador
   device_id int NOT NULL,
-  user_email varchar(50) NOT NULL,
+  user_id int NOT NULL,
   user_permisos varchar(20) NOT NULL NULL, -- admin, editor, lector
   PRIMARY KEY (relation_id),
   KEY fk_relationId_petId_idx (pet_id),
   KEY fk_relationId_deviceId_idx (device_id),
-  KEY fk_relationId_userId_idx (user_email)
+  KEY fk_relationId_userId_idx (user_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla 'relaciones'
 --
 
-INSERT INTO relaciones (pet_id, device_id, user_email, user_permisos) VALUES
-(1, 1, 'prueba1@gmail.com', 'admin'),
-(2, 1, 'prueba2@gmail.com', 'admin');
+INSERT INTO relaciones (pet_id, device_id, user_id, user_permisos) VALUES
+(1, 1, 1, 'admin'),
+(2, 1, 2, 'admin');
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,7 @@ ALTER TABLE mediciones
 ALTER TABLE relaciones
   ADD CONSTRAINT fk_relaciones_petId FOREIGN KEY (pet_id) REFERENCES mascotas (pet_id) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT fk_relaciones_deviceId FOREIGN KEY (device_id) REFERENCES dispositivos (device_id) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT fk_relaciones_userEmail FOREIGN KEY (user_email) REFERENCES usuarios (user_email) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT fk_relaciones_userEmail FOREIGN KEY (user_id) REFERENCES usuarios (user_id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla 'anotaciones'
