@@ -1,0 +1,8 @@
+{
+    "name": "frontend-dam",
+    "integrations": {
+      "capacitor": {}
+    },
+    "type": "angular"
+  }
+  
