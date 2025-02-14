@@ -10,13 +10,9 @@ services:
         -                       "8100:8100"
       container_name:           ionic-ui
       volumes:
-         -                      ./frontend/src:/app
+         -                      ./frontend:/frontend
          -                      /frontend/node_modules
       command:                  ionic serve --external
-      networks:
-      -                         app-fullstack-net
-      #depends_on:
-      #  -                       node-backend
 
     mysql-server:
         image:                   mysql:5.7
