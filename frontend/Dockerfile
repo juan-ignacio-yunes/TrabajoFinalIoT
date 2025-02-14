@@ -1,6 +1,6 @@
 FROM node:20
 
-WORKDIR /src/frontend/dam
+WORKDIR /frontend
 
 COPY package*.json ./
 
