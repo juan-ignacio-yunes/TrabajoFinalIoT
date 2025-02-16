@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title><ion-button (click)="irAInicio()">Ir a inicio</ion-button>  Logs</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">logs</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>Valvula</ion-col>
+        <ion-col>Fecha</ion-col>
+        <ion-col>Log N°</ion-col>
+        <ion-col>Apertura</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let log of listado">
+        <ion-col>{{ log.electrovalvulaId }}</ion-col>
+        <ion-col>{{ log.fecha }}</ion-col>
+        <ion-col>{{ log.logRiegoId }}</ion-col>
+        <ion-col>{{ log.apertura }}</ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>

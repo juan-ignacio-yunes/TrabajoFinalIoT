@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Dispositivos</ion-title>
+  </ion-toolbar>
+  <!--button (click)="subscribe()">Sub</button>
+  <br>
+  <button (click)="unsubscribe()">Unsub</button>
+  <br-->
+  <!--ion-button (click)="requestlistado()">Listar Sensores</ion-button-->
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">dispositivos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-button fill="clear" (click)="enableOn()" *ngIf="!enable">Mostar lista</ion-button>
+  <ion-button fill="clear" (click)="disableOn()" *ngIf="enable">Ocultar lista</ion-button>
+  <div *ngIf="enable">
+    <div *ngFor="let elemento of listado" appColorear>
+      <app-dispositivo [dispositivo]="elemento" (click)="handleItemClick(elemento)"></app-dispositivo>
+    </div>
+  </div>
+</ion-content>
+
+<!--ion-content [fullscreen]="true">
+  <ion-item (click)="handleItemClick()">
+    <ion-label>
+      <h2>{{dispositivo.id}} - {{dispositivo.nombre}}</h2>
+      <p>{{dispositivo.ubicacion}}</p>
+    </ion-label>
+  </ion-item>
+</ion-content-->
