@@ -56,7 +56,7 @@ services:
             -                    mysql-server
         ports: 
             -                    "8000:3000"
-        command:                 nodemon --legacy-watch /home/node/app/src/index.js # nodemon /home/node/app/src/index.js # sh -c "cd /home/node/app/src && npm install && nodemon index.js" # 
+        command:                 nodemon /home/node/app/src/index.js # sh -c "cd /home/node/app/src && npm install && nodemon index.js" # nodemon --legacy-watch /home/node/app/src/index.js # 
 
 networks:
     app-fullstack-net:
