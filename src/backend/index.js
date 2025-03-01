@@ -92,7 +92,7 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/dispositivos', function (req, res) {
-    pool.query('Select * from Dispositivos', function(err, result, fields) {
+    pool.query('Select * from dispositivos', function(err, result, fields) {
         if (err) {
             res.send(err).status(400);
             return;
