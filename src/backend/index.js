@@ -106,7 +106,7 @@ app.post('/login', (req, res) => {
     });
 }) */
 
-app.get('/mediciones/:id',function(req,res){
+/* app.get('/mediciones/:id',function(req,res){
     const id = req.params.id;
     console.log("se hizo GET a la api de mediciones para el dispositivo ",id);
     console.log(req.params);
@@ -117,9 +117,9 @@ app.get('/mediciones/:id',function(req,res){
         }
         res.send(result);
     });
-});
+}); */
 
-app.get('/ultimaMedicion/:id',function(req,res){
+/* app.get('/ultimaMedicion/:id',function(req,res){
     const id = req.params.id;
     console.log("se hizo GET a la api de mediciones para el dispositivo ",id);
     console.log(req.params);
@@ -131,7 +131,7 @@ app.get('/ultimaMedicion/:id',function(req,res){
         res.send(result);
     });
 });
-
+ */
 
 app.post('/mediciones/agregar', function (req, res) {
     const id = req.body.dispositivoId;
