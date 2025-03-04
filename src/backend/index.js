@@ -8,7 +8,9 @@ var express = require('express');
 var app = express();
 var pool = require('./mysql-connector');
 const jwt = require('jsonwebtoken')
-const routerDispositivo = require('./routes/dispositivos')
+const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos')
+const routerMascotas = require('./routes/mascotas')
+const routerUsuarios = require('./routes/usuarios')
 
 const YOUR_SECRET_KEY = 'mi llave'
 var testUser = {username: 'test', password: '1234'}
@@ -44,8 +46,6 @@ app.use(express.static('/home/node/app/static/'));
 app.use(cors(corsOptions))
 app.use(myLogger)
 
-app.use('/dispositivo', routerDispositivo)
-
 //=======[ Main module code ]==================================================
 
 // var cb0 = function (req, res, next) {
@@ -69,6 +69,11 @@ var cb2 = function (req, res, next) {
 // app.get('/', [cb0, cb1, cb2]);
 app.get('/', cb2);
 
+app.use('/dispositivos', routerDispositivos)
+app.use('/dispositivos', routerDispositivo)
+app.use('/mascotas', routerMascotas)
+app.use('/usuarios', routerUsuarios)
+
 app.post('/login', (req, res) => {
     if (req.body) {
         var userData = req.body
@@ -91,7 +96,7 @@ app.post('/login', (req, res) => {
     }
 })
 
-app.get('/dispositivos', function (req, res) {
+/* app.get('/dispositivos', function (req, res) {
     pool.query('Select * from dispositivos', function(err, result, fields) {
         if (err) {
             res.send(err).status(400);
@@ -99,7 +104,7 @@ app.get('/dispositivos', function (req, res) {
         }
         res.send(result);
     });
-})
+}) */
 
 app.get('/mediciones/:id',function(req,res){
     const id = req.params.id;
