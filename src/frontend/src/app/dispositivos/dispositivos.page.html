@@ -16,13 +16,18 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button fill="clear" (click)="enableOn()" *ngIf="!enable">Mostar lista</ion-button>
+  <!-- <ion-button fill="clear" (click)="enableOn()" *ngIf="!enable">Mostar lista</ion-button>
   <ion-button fill="clear" (click)="disableOn()" *ngIf="enable">Ocultar lista</ion-button>
   <div *ngIf="enable">
     <div *ngFor="let elemento of listado" appColorear>
       <app-dispositivo [dispositivo]="elemento" (click)="handleItemClick(elemento)"></app-dispositivo>
     </div>
-  </div>
+  </div> -->
+
+    <div *ngFor="let elemento of listado" appColorear>
+      <app-dispositivo [dispositivo]="elemento" (click)="handleItemClick(elemento)"></app-dispositivo>
+    </div>
+
 </ion-content>
 
 <!--ion-content [fullscreen]="true">

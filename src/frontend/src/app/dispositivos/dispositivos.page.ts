@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, fromEvent, interval, map } from 'rxjs';
+import { Observable, S
+  scription, fromEvent, interval, map } from 'rxjs';
 import { DispositivoService } from '../services/dispositivo.service';
 import { ActivatedRoute, Router} from '@angular/router';
 
