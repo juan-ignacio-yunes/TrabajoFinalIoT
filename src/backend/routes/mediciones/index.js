@@ -20,7 +20,7 @@ routerMediciones.get('/', function (req, res) {
     const query = `
     SELECT 
         DATE(fechaHora_medicion) AS fecha, 
-        AVG(JSON_UNQUOTE(JSON_EXTRACT(medicion, '$.peso_animal'))) AS peso_promedio
+        ROUND(AVG(JSON_UNQUOTE(JSON_EXTRACT(valor, '$.peso_animal'))), 2) AS peso_promedio
     FROM mediciones 
     WHERE pet_id = ? AND fechaHora_medicion BETWEEN ? AND ?
     GROUP BY DATE(fechaHora_medicion)
@@ -28,7 +28,7 @@ routerMediciones.get('/', function (req, res) {
 
     // Consulta optimizada para el último peso
     const queryUltimoPeso = `
-    SELECT JSON_UNQUOTE(JSON_EXTRACT(medicion, '$.peso_animal')) AS ultimo_peso
+    SELECT JSON_UNQUOTE(JSON_EXTRACT(valor, '$.peso_animal')) AS ultimo_peso
     FROM mediciones
     WHERE pet_id = ?
     ORDER BY measure_id DESC

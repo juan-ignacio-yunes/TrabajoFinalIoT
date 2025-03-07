@@ -11,6 +11,7 @@ const jwt = require('jsonwebtoken')
 const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos')
 const routerMascotas = require('./routes/mascotas')
 const routerUsuarios = require('./routes/usuarios')
+const routerMediciones = require('./routes/mediciones')
 
 const YOUR_SECRET_KEY = 'mi llave'
 var testUser = {username: 'test', password: '1234'}
@@ -73,6 +74,7 @@ app.use('/dispositivos', routerDispositivos)
 app.use('/dispositivos', routerDispositivo)
 app.use('/mascotas', routerMascotas)
 app.use('/usuarios', routerUsuarios)
+app.use('/mediciones', routerMediciones)
 
 app.post('/login', (req, res) => {
     if (req.body) {
@@ -131,7 +133,7 @@ app.post('/login', (req, res) => {
         res.send(result);
     });
 });
- */
+*/
 
 app.post('/mediciones/agregar', function (req, res) {
     const id = req.body.dispositivoId;

@@ -38,6 +38,7 @@ CREATE TABLE `mascotas` (
   `raza` varchar(50) DEFAULT NULL,
   `alturaHombros_cm` float DEFAULT NULL,
   `peso_kg` float DEFAULT NULL,
+  `limites` JSON DEFAULT NULL, -- {límite inferior, límite superior}
   `fechaNacimiento` date DEFAULT NULL,
   `obseraciones` varchar(400) DEFAULT NULL,
   PRIMARY KEY (`pet_id`)
@@ -47,9 +48,9 @@ CREATE TABLE `mascotas` (
 -- Volcado de datos para la tabla 'mascotas'
 -- No debería ser necesario explicitar pet_id porque es autocomplete
 
-INSERT INTO `mascotas` (`pet_nombre`, `raza`, `alturaHombros_cm`, `peso_kg`, `fechaNacimiento`, `obseraciones`) VALUES
-('Pichicho', 'callejero', 40, 1.5, '2024-12-01', 'problemas crónicos por leishmaniasis'),
-('Fenômeno', 'Fila brasileño', 70, 50, '2014-07-01',NULL);
+INSERT INTO `mascotas` (`pet_nombre`, `raza`, `alturaHombros_cm`, `peso_kg`, `limites`, `fechaNacimiento`, `obseraciones`) VALUES
+('Pichicho', 'callejero', 40, 1.5, {1, 2}, '2024-12-01', 'problemas crónicos por leishmaniasis'),
+('Fenômeno', 'Fila brasileño', 70, 50, {45, 55},'2014-07-01',NULL);
 
 -- --------------------------------------------------------
 

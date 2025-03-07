@@ -1,28 +1,52 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title><ion-button (click)="irAInicio()">Ir a inicio</ion-button>  Mediciones</ion-title>
+    <ion-title>Historial de Peso</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">mediciones</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
+<ion-content>
+
+  <!-- Contenedor para los 2 inputs, sin usar todo el ancho -->
+  <div style="display: flex; gap: 1rem; padding: 1rem; justify-content: center;">
+    <!-- Fecha Inicio (auto-width) -->
+    <ion-item style="width: auto;">
+      <ion-label>Fecha Inicio</ion-label>
+      <ion-input 
+        type="date"
+        [(ngModel)]="fechaInicio"
+        (ionChange)="actualizarFechas()"
+        legacy="true">
+      </ion-input>
+    </ion-item>
+    
+    <!-- Fecha Fin (auto-width) -->
+    <ion-item style="width: auto;">
+      <ion-label>Fecha Fin</ion-label>
+      <ion-input 
+        type="date"
+        [(ngModel)]="fechaFin"
+        (ionChange)="actualizarFechas()"
+        legacy="true">
+      </ion-input>
+    </ion-item>
+  </div>
+
+  <!-- Grid para centrar el gráfico y usar 10 de 12 columnas -->
   <ion-grid>
-    <ion-row>
-      <ion-col>Dispositivo</ion-col>
-      <ion-col>Fecha</ion-col>
-      <ion-col>Medicion</ion-col>
-      <ion-col>Valor</ion-col>
-    </ion-row>
-    <ion-row *ngFor="let medicion of listado" appColorear>
-      <ion-col>{{ medicion.dispositivoId }}</ion-col>
-      <ion-col>{{ medicion.fecha }}</ion-col>
-      <ion-col>{{ medicion.medicionId }}</ion-col>
-      <ion-col>{{ medicion.valor }} cbar</ion-col>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="10">
+        <!-- Card para contener el canvas -->
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Gráfico de Peso</ion-card-title>
+          </ion-card-header>
+          <ion-card-content style="text-align: center;">
+            <!-- Canvas con id="myChart" (IMPORTANTE) -->
+            <canvas id="myChart" style="max-width: 100%;"></canvas>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
     </ion-row>
   </ion-grid>
+
 </ion-content>
