@@ -6,11 +6,17 @@
 
 <ion-content>
 
-  <!-- Contenedor para los 2 inputs, sin usar todo el ancho -->
-  <div style="display: flex; gap: 1rem; padding: 1rem; justify-content: center;">
+  <!-- Contenedor para los 2 inputs de fehca y el botón de inicio -->
+  <div style="display: flex; gap: 1rem; padding: 1rem; align-items: center; justify-content: space-between; max-width: 80%; margin: auto;">
+    
+    <!-- Botón de Inicio alineado al margen izquierdo -->
+    <ion-button (click)="irAInicio()" color="primary">
+      Inicio
+    </ion-button>
+    
     <!-- Fecha Inicio (auto-width) -->
     <ion-item style="width: auto;">
-      <ion-label>Fecha Inicio</ion-label>
+      <ion-label>Desde</ion-label>
       <ion-input 
         type="date"
         [(ngModel)]="fechaInicio"
@@ -21,7 +27,7 @@
     
     <!-- Fecha Fin (auto-width) -->
     <ion-item style="width: auto;">
-      <ion-label>Fecha Fin</ion-label>
+      <ion-label>Hasta</ion-label>
       <ion-input 
         type="date"
         [(ngModel)]="fechaFin"

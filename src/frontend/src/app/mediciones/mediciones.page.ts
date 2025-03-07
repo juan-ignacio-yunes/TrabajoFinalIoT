@@ -27,6 +27,11 @@ export class MedicionesPage implements OnInit {
     private alertController: AlertController
   ) {}
 
+  // Método para redirigir a la página de inicio. Se usará en el botón Inicio
+  irAInicio(): void {
+    this.router.navigate(['/home']); // Asegurate de que '/home' es la ruta correcta a la página de inicio
+  }
+
   ngOnInit(): void {
     // Se toman parámetros de la URL, si existen
     const params = this.route.snapshot.queryParams;
