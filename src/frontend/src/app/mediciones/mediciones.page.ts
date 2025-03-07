@@ -1,47 +1,8 @@
-/* import { Component, OnInit } from '@angular/core';
-import { GetMedicionService } from '../services/get-medicion.service';
-import { ActivatedRoute, Router} from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
-@Component({
-  selector: 'app-mediciones',
-  templateUrl: './mediciones.page.html',
-  styleUrls: ['./mediciones.page.scss'],
-})
-export class MedicionesPage implements OnInit {
-  
-  id: number = 0;
-  listado: any[] = [];
-  private unsubscribe$ = new Subject<void>();
-
-  constructor(private _actRouter: ActivatedRoute, private medicionService: GetMedicionService, private router: Router) { }
-
-  ngOnInit() {
-    this.id = Number(this._actRouter.snapshot.paramMap.get('id'));
-    this.medicionService.getMediciones(this.id)
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((data: any[]) => {
-      this.listado = data;
-    });
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe$.next();
-    this.unsubscribe$.complete();
-  }
-
-  irAInicio() {
-    console.log("vamos a Inicio");
-    this.router.navigate(['/home']);
-  }
-}
- */
-
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import Chart from 'chart.js/auto';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mediciones',
@@ -57,15 +18,17 @@ export class MedicionesPage implements OnInit {
   fechaFin: string = '';
 
   private myChart: Chart | null = null;
+  private alertaMostrada = false; // variable para evitar alertas repetidas
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private alertController: AlertController
   ) {}
 
   ngOnInit(): void {
-    // Tomamos parámetros de la URL, si existen
+    // Se toman parámetros de la URL, si existen
     const params = this.route.snapshot.queryParams;
 
     // Fecha por defecto: hoy para fin
@@ -82,13 +45,37 @@ export class MedicionesPage implements OnInit {
     this.obtenerMediciones();
   }
 
+  async alertaFechas(mensaje: string)  {
+    if (this.alertaMostrada) {
+      return; // Evita mostrar alertas repetidas
+    }
+
+    this.alertaMostrada = true; // Marcamos que la alerta se está mostrando
+
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: mensaje,
+      buttons: ['Aceptar'],
+    });
+
+    await alert.present();
+
+    // Cuando se cierre la alerta, permitimos que vuelva a mostrarse en el futuro
+    alert.onDidDismiss().then(() => {
+      this.alertaMostrada = false;
+    });
+  }
+
   actualizarFechas(): void {
-    // Verificamos que la fechaInicio sea menor o igual a fechaFin
+    // Se verifica que la fechaInicio sea menor o igual a fechaFin
     const inicioDate = new Date(this.fechaInicio);
     const finDate = new Date(this.fechaFin);
 
     if (inicioDate > finDate) {
-      // Podés mostrar un Toast, Alert o simplemente un console.error
+      // Se espera un breve momento para que se cierre el selector de fechas y luego se muestra el Alert (una alternativa searía un Toast) y un console.error
+      setTimeout(() => {
+        this.alertaFechas('La fecha de inicio no puede ser posterior a la fecha de fin');
+      }, 300); // 300ms es suficiente para que el selector se cierre 
       console.error('La fecha de inicio no puede ser posterior a la fecha de fin');
       return; // Evitamos continuar
     }
@@ -111,7 +98,7 @@ export class MedicionesPage implements OnInit {
     // Ruta al backend
     const url = `http://localhost:8000/mediciones?id=${this.idMascota}&inicio=${this.fechaInicio}&fin=${this.fechaFin}`;
 
-    // Definimos un tipo para la respuesta esperada
+    // Se define un tipo para la respuesta esperada
     interface RespuestaMediciones {
       datos: Array<{ fecha: string; peso_promedio: number }>;
       ultimo_peso: number | null;
@@ -134,30 +121,30 @@ export class MedicionesPage implements OnInit {
   }
 
   private crearGrafico(): void {
-    // Si ya existe un gráfico previo, lo destruimos para evitar superposiciones
+    // Si ya existe un gráfico previo, se lo destruye para evitar superposiciones
     if (this.myChart) {
       this.myChart.destroy();
     }
 
-    // Preparamos arrays para el eje X (labels) y el eje Y (data)
+    // Se preparan arrays para el eje X (labels) y el eje Y (data)
     const labels = this.datos.map((item) => item.fecha);
     const data = this.datos.map((item) => item.peso_promedio);
 
-    // Obtenemos el elemento <canvas> del DOM
+    // Se obtiene el elemento <canvas> del DOM
     const canvas = document.getElementById('myChart') as HTMLCanvasElement;
     if (!canvas) {
       console.error('No se encontró el elemento <canvas> con id="myChart".');
       return;
     }
 
-    // Obtenemos el contexto 2D. Si es null, detenemos.
+    // Se obtiene el contexto 2D. Si es null, detenemos.
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       console.error('No se pudo obtener el contexto 2D del canvas.');
       return;
     }
 
-    // Creamos la instancia de Chart.js
+    // Se crea la instancia de Chart.js
     this.myChart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -183,4 +170,3 @@ export class MedicionesPage implements OnInit {
     });
   }
 }
-
