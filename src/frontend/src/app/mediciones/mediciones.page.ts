@@ -120,7 +120,10 @@ export class MedicionesPage implements OnInit {
     this.http.get<RespuestaMediciones>(url).subscribe(
       (res) => {
         console.log('Respuesta de la API:', res);
-        this.datos = res.datos;
+        this.datos = res.datos.map(item => ({
+          fecha: item.fecha.split('T')[0], // Removiendo la hora de la fecha
+          peso_promedio: item.peso_promedio
+        }));
         this.ultimoPeso = res.ultimo_peso;
         this.crearGrafico();
       },
@@ -169,6 +172,13 @@ export class MedicionesPage implements OnInit {
       options: {
         responsive: true,
         maintainAspectRatio: false, // Para que se adapte al tamaño del contenedor
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: (tooltipItem) => `Peso: ${tooltipItem.raw} kg` // Formato del tooltip
+            }
+          }
+        }
       },
     });
   }
