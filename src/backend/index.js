@@ -12,6 +12,7 @@ const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos
 const routerMascotas = require('./routes/mascotas')
 const routerUsuarios = require('./routes/usuarios')
 const routerMediciones = require('./routes/mediciones')
+const { routerLogin, routerRegistro} = require('./routes/registro')
 
 const YOUR_SECRET_KEY = 'mi llave'
 var testUser = {username: 'test', password: '1234'}
@@ -75,8 +76,10 @@ app.use('/dispositivos', routerDispositivo)
 app.use('/mascotas', routerMascotas)
 app.use('/usuarios', routerUsuarios)
 app.use('/mediciones', routerMediciones)
+app.use('/login', routerLogin)
+app.use('/registro', routerRegistro)
 
-app.post('/login', (req, res) => {
+/* app.post('/login', (req, res) => {
     if (req.body) {
         var userData = req.body
 
@@ -96,7 +99,7 @@ app.post('/login', (req, res) => {
             errorMessage: 'Se requiere un usuario y contraseña'
         })
     }
-})
+}) */
 
 /* app.get('/dispositivos', function (req, res) {
     pool.query('Select * from dispositivos', function(err, result, fields) {
