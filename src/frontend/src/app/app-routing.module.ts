@@ -45,6 +45,10 @@ const routes: Routes = [
     path: 'imagen-medidor',
     loadChildren: () => import('./imagen-medidor/imagen-medidor.module').then( m => m.ImagenMedidorPageModule)
   },
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+  },
 
 
 ];
