@@ -82,9 +82,10 @@ INSERT INTO `dispositivos` (`device_nombre`, `modelo`) VALUES
 CREATE TABLE usuarios (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `user_email` varchar(50) NOT NULL,
-  `contraseña` varchar(50) NOT NULL,
+  `contraseña` varchar(255) NOT NULL,
   `user_nombre` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`user_id`)
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY (`user_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
