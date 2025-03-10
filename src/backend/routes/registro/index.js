@@ -32,10 +32,12 @@ routerLogin.post('/login', (req, res) => {
 
 const routerRegistro = express.Router();
 
+const SALT_ROUNDS = 10; // Seguridad para el hash
+
 routerRegistro.post('/registro', async (req, res) => {
     
     try {
-        const { user, password, email } = req.body;
+        const { user_email, password, user_nombre } = req.body;
 
         // Validar campos obligatorios
         if (!user_email || !password ) {
@@ -52,7 +54,7 @@ routerRegistro.post('/registro', async (req, res) => {
         }
     
         // Hashear la contraseña
-        bcrypt.hash(password, 10 /*número de SALT_ROUNDS*/, function(err, hash) {
+        /*bcrypt.hash(password, 10 /*número de SALT_ROUNDS*//*, function(err, hash) {
             if (err) {
                 console.error("Error al hashear la contraseña:", err);
                 return res.status(500).json({ error: 'Error al registrar el usuario' });
@@ -67,6 +69,16 @@ routerRegistro.post('/registro', async (req, res) => {
                 res.json({ mensaje: 'Usuario registrado correctamente' });
             });
         });
+    } */
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+    // Insertar el usuario en la base de datos
+    await pool.promise().query(
+        'INSERT INTO usuarios (user_email, contraseña, user_nombre) VALUES (?, ?, ?)',
+        [user_email, hashedPassword, user_nombre || null]
+    );
+
+    res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
         console.error("Error al registrar el usuario:", error);
         return res.status(500).json({ error: 'Error al registrar el usuario' });

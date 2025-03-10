@@ -21,16 +21,17 @@ export class RegistroPage {
   ) { }
 
   onSubmit() {
-    this.http.post('http://localhost:3000/registro/', this.formData)
+    this.http.post('http://localhost:3000/registro', this.formData)
       .subscribe({
         next: (res) => {
           console.log('Usuario registrado', res);
+          alert('Registro exitoso');
           // Luego se redirige al usuario a la home
           this.router.navigate(['/home']);
         },
         error: (err) => {
           console.error('Error en registro:', err);
-          // Manejo de error, ej. mostrar un toast
+          alert(err.error?.error || 'Error al registrar usuario');
         }
       });
   }

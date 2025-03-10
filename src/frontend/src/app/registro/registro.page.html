@@ -1,29 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8" />
-  <title>Página de Registro</title>
-</head>
-<body>
-  <h1>Registrarse</h1>
-  
-  <form action="/register" method="POST">
-    <label for="user_email">Email:</label>
-    <input type="email" id="user_email" name="user_email" required>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <br><br>
+<ion-content>
+  <form (ngSubmit)="onSubmit()" #registroForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Email</ion-label>
+      <ion-input type="email" [(ngModel)]="formData.user_email" name="user_email" required></ion-input>
+    </ion-item>
 
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="password" required>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input type="password" [(ngModel)]="formData.password" name="password" required></ion-input>
+    </ion-item>
 
-    <br><br>
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input type="text" [(ngModel)]="formData.user_nombre" name="user_nombre"></ion-input>
+    </ion-item>
 
-    <label for="user_nombre">Nombre:</label>
-    <input type="text" id="user_nombre" name="user_nombre" placeholder="(opcional)">
-
-    <br><br>
-
-    <button type="submit">Registrarse</button>
+    <ion-button expand="full" type="submit" [disabled]="registroForm.invalid">
+      Registrarse
+    </ion-button>
   </form>
-</body>
-</html>
+</ion-content>

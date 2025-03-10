@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RegistroPageRoutingModule } from './registro-routing.module';
 import { RegistroPage } from './registro.page';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -11,7 +12,8 @@ import { RegistroPage } from './registro.page';
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    RegistroPageRoutingModule
+    RegistroPageRoutingModule,
+    HttpClientModule
   ],
   declarations: [RegistroPage]
 })
