@@ -181,7 +181,8 @@ CREATE TABLE `raciones` (
   `relation_id` int NOT NULL,
   `fechaHora_ultima_modif` datetime NOT NULL,
   `racion_peso_gr` float NOT NULL,
-  `racion_hora` time NOT NULL,
+  `racion_hora_inicio` time NOT NULL,
+  `racion_frecuencia_horas` int NOT NULL,
   `alimento_marca` varchar(50) DEFAULT NULL,
   `alimento_nombre` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ration_id`),
@@ -192,8 +193,8 @@ CREATE TABLE `raciones` (
 -- Volcado de datos a la tabla 'raciones'
 --
 
-INSERT INTO `raciones` (`relation_id`, `fechaHora_ultima_modif`, `racion_peso_gr`, `racion_hora`, `alimento_marca`, `alimento_nombre`) VALUES
-(2, '2024-01-25 17:00:40', 200, '15:00:00',NULL, NULL);
+INSERT INTO `raciones` (`relation_id`, `fechaHora_ultima_modif`, `racion_peso_gr`, `racion_hora_inicio`, `racion_hora_inicio`, `racion_frecuencia_horas`, `alimento_marca`, `alimento_nombre`) VALUES
+(2, '2024-01-25 17:00:40', 200, '08:00:00', 2, NULL, NULL);
 
 -- --------------------------------------------------------
 

@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt'); // Para hashear passwords
 
 const routerUser = express.Router()
 
-routerUsers.get('/', function (req, res) {
+routerUser.get('/', function (req, res) {
     pool.query('Select * from usuarios where user = ?', function(err, result, fields) {
         if (err) {
             res.send(err).status(400);
