@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: 'dispositivo',
-    loadChildren: () => import('./dispositivo/dispositivo.module').then( m => m.DispositivoPageModule)
+    loadChildren: () => import('./dispositivo/dispositivo.module').then( m => m.DispositivoPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'detalle-sensor',
@@ -40,8 +41,10 @@ const routes: Routes = [
   },
   {
     path: 'mediciones',
-    loadChildren: () => import('./mediciones/mediciones.module').then( m => m.MedicionesPageModule)
-  },  {
+    loadChildren: () => import('./mediciones/mediciones.module').then( m => m.MedicionesPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'imagen-medidor',
     loadChildren: () => import('./imagen-medidor/imagen-medidor.module').then( m => m.ImagenMedidorPageModule)
   },
