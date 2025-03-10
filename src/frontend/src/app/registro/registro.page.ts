@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http'; 
-import { Router } from '@angular/router'; // si quieres redireccionar
-import { environment } from 'src/environments/environment'; // si tienes un environment.ts
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
@@ -10,7 +8,7 @@ import { environment } from 'src/environments/environment'; // si tienes un envi
 })
 export class RegistroPage {
 
-  // Objeto que enlazamos con el form (vía [(ngModel)])
+  // Objeto que se enlaza con el form (vía [(ngModel)])
   formData = {
     user_email: '',
     password: '',
@@ -23,12 +21,11 @@ export class RegistroPage {
   ) { }
 
   onSubmit() {
-    // Suponiendo que el backend corre en: http://localhost:3000/api/registro/register
-    this.http.post('http://localhost:3000/api/registro/register', this.formData)
+    this.http.post('http://localhost:3000/registro/', this.formData)
       .subscribe({
         next: (res) => {
           console.log('Usuario registrado', res);
-          // Si quieres redirigir al login, por ejemplo:
+          // Luego se redirige al usuario a la home
           this.router.navigate(['/home']);
         },
         error: (err) => {
