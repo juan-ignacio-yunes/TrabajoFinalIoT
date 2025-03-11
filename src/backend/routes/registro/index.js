@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../../mysql-connector');
 const bcrypt = require('bcrypt'); // Para hashear passwords
+const validator = require('validator'); // Para validar emails
 
 // ----- login de usuarios ----- //
 
@@ -42,6 +43,11 @@ routerRegistro.post('/registro', async (req, res) => {
         // Validar campos obligatorios
         if (!user_email || !password ) {
             return res.status(400).json({ error: 'El email y la contraseña son obligatorios' });
+        }
+
+        // Validar formato de email
+        if (!validator.isEmail(user_email)) {
+            return res.status(400).json({ error: 'Formato de email inválido' });
         }
 
         // Verificar si el email ya existe

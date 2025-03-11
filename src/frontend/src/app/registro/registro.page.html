@@ -6,23 +6,33 @@
 
 <ion-content>
   <form (ngSubmit)="onSubmit()" #registroForm="ngForm">
+
     <ion-item>
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="formData.user_email" name="user_email" required></ion-input>
+      <ion-input 
+        label="Email"
+        type="email"
+        [(ngModel)]="formData.user_email"
+        name="user_email"
+        #emailRef="ngModel"
+        required
+        email>
+      </ion-input>
+    </ion-item>
+    <ion-text color="danger" *ngIf="emailRef.invalid && emailRef.touched">
+      ⚠️ Introduce un email válido.
+    </ion-text>
+
+    <ion-item>
+      <ion-input label="Contraseña" type="password" [(ngModel)]="formData.password" name="password" required></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" [(ngModel)]="formData.password" name="password" required></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input type="text" [(ngModel)]="formData.user_nombre" name="user_nombre"></ion-input>
+      <ion-input label="Nombre" type="text" [(ngModel)]="formData.user_nombre" name="user_nombre"></ion-input>
     </ion-item>
 
     <ion-button expand="full" type="submit" [disabled]="registroForm.invalid">
       Registrarse
     </ion-button>
+
   </form>
 </ion-content>
