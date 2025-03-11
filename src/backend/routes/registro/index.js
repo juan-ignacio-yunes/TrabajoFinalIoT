@@ -7,7 +7,7 @@ const validator = require('validator'); // Para validar emails
 
 const routerLogin = express.Router();
 
-routerLogin.post('/login', (req, res) => {
+routerLogin.post('/', (req, res) => {
     if (req.body) {
         var userData = req.body
 
@@ -35,7 +35,7 @@ const routerRegistro = express.Router();
 
 const SALT_ROUNDS = 10; // Seguridad para el hash
 
-routerRegistro.post('/registro', async (req, res) => {
+routerRegistro.post('/', async (req, res) => {
     
     try {
         const { user_email, password, user_nombre } = req.body;
