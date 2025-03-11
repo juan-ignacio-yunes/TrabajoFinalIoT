@@ -28,29 +28,14 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'detalle-sensor',
-    loadChildren: () => import('./detalle-sensor/detalle-sensor.module').then( m => m.DetalleSensorPageModule)
-  },
-  {
-    path: 'sensor',
-    loadChildren: () => import('./sensor/sensor.module').then( m => m.SensorPageModule)
-  },
-  {
-    path: 'logs',
-    loadChildren: () => import('./log_riegos/logs.module').then( m => m.LogsPageModule)
-  },
-  {
     path: 'mediciones',
     loadChildren: () => import('./mediciones/mediciones.module').then( m => m.MedicionesPageModule),
     canActivate: [AuthGuard]
   },
   {
-    path: 'imagen-medidor',
-    loadChildren: () => import('./imagen-medidor/imagen-medidor.module').then( m => m.ImagenMedidorPageModule)
-  },
-  {
     path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule),
+    canActivate: [AuthGuard]
   },
 
 

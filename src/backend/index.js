@@ -25,7 +25,7 @@ const corsOptions = {
 
 const app = express();
 app.use(cors(corsOptions));  // Habilita CORS antes de cualquier otro middleware
-app.options('*', cors());    // Manejo de preflight requests
+app.options('*', cors(corsOptions));    // Manejo de preflight requests
 
 // Middleware para parsear JSON
 app.use(express.json());
@@ -68,6 +68,11 @@ app.use('/mediciones', routerMediciones);
 // Ruta protegida de prueba
 app.get('/prueba', authenticator, function(req, res) {
     res.send({ message: 'Está autenticado, accede a los datos' });
+    res.send('API funcionando correctamente');
+});
+
+app.get('/', (req, res) => {
+    res.send('¡Servidor funcionando correctamente!');
 });
 
 // Iniciar servidor
