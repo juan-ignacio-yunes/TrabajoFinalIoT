@@ -49,8 +49,9 @@ CREATE TABLE `mascotas` (
 -- No debería ser necesario explicitar pet_id porque es autocomplete
 
 INSERT INTO `mascotas` (`pet_nombre`, `raza`, `alturaHombros_cm`, `peso_kg`, `limites`, `fechaNacimiento`, `observaciones`) VALUES
-('Pichicho', 'callejero', 40, 1.5, {1, 2}, '2024-12-01', 'problemas crónicos por leishmaniasis'),
-('Fenômeno', 'Fila brasileño', 70, 50, {45, 55},'2014-07-01',NULL);
+('Pichicho', 'callejero', 40, 1.5, '{"limite_inferior": 1, "limite_superior": 2}', '2024-12-01', 'problemas crónicos por leishmaniasis'),
+('Fenômeno', 'Fila brasileño', 70, 50, '{"limite_inferior": 45, "limite_superior": 55}','2014-07-01',NULL);
+
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,7 @@ CREATE TABLE `relaciones` (
   `pet_id` int DEFAULT NULL, -- no siempre bva a estar relacionado algún animal. Por ejemplo, cuando reién se conecta un usuario a un alientador
   `device_id` int NOT NULL,
   `user_id` int NOT NULL,
-  `user_permisos` varchar(20) NOT NULL NULL, -- admin, editor, lector
+  `user_permisos` varchar(20) NOT NULL, -- admin, editor, lector
   PRIMARY KEY (`relation_id`),
   KEY `fk_relationId_petId_idx` (`pet_id`),
   KEY `fk_relationId_deviceId_idx` (`device_id`),
