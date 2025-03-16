@@ -64,6 +64,7 @@ app.use('/mascotas', routerMascotas);
 app.use('/usuarios', routerUser);
 app.use('/usuarios', routerUserReg);
 app.use('/mediciones', routerMediciones);
+//app.use('/raciones', routerRaciones);
 
 // Ruta protegida de prueba
 app.get('/prueba', authenticator, function(req, res) {

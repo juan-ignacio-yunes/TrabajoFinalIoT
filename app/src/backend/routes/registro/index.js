@@ -39,6 +39,7 @@ routerRegistro.post('/', async (req, res) => {
     
     try {
         const { user_email, password, user_nombre } = req.body;
+        console.log(user_email, password)
 
         // Validar campos obligatorios
         if (!user_email || !password ) {
@@ -51,11 +52,12 @@ routerRegistro.post('/', async (req, res) => {
         }
 
         // Verificar si el email ya existe
-        const [rows] = await pool.promise().query(
+        const rows = pool.query(
             'SELECT user_id FROM usuarios WHERE user_email = ?',
             [user_email]
         );
-        if (rows.length > 0) {
+        console.log('rows=', rows)
+        if (rows.values = user_email) {
             return res.status(400).send('El email ya está en uso');
         }
     
@@ -79,15 +81,14 @@ routerRegistro.post('/', async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Insertar el usuario en la base de datos
-    await pool.promise().query(
+    await pool.query(
         'INSERT INTO usuarios (user_email, contraseña, user_nombre) VALUES (?, ?, ?)',
-        [user_email, hashedPassword, user_nombre || null]
+        [user_email, password, user_nombre || null] //hashedPassword, user_nombre || null]
     );
-
     res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
         console.error("Error al registrar el usuario:", error);
-        return res.status(500).json({ error: 'Error al registrar el usuario' });
+        return res.status(540).json({ error: 'Error al registrar el usuario' });
     }
 })
 
