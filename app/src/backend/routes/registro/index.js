@@ -39,7 +39,8 @@ routerRegistro.post('/', async (req, res) => {
     
     try {
         const { user_email, password, user_nombre } = req.body;
-        console.log(user_email, password)
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+        console.log(user_email, password, hashedPassword)
 
         // Validar campos obligatorios
         if (!user_email || !password ) {
@@ -52,13 +53,15 @@ routerRegistro.post('/', async (req, res) => {
         }
 
         // Verificar si el email ya existe
-        const rows = pool.query(
+        const rows = await pool.query(
             'SELECT user_id FROM usuarios WHERE user_email = ?',
             [user_email]
         );
+
         console.log('rows=', rows)
-        if (rows.values = user_email) {
-            return res.status(400).send('El email ya está en uso');
+
+        if (rows.length>0) {//.values[0] == user_email) {
+            return res.status(400).send(rows.length); //return res.status(400).send('El email ya está en uso');
         }
     
         // Hashear la contraseña
@@ -78,12 +81,11 @@ routerRegistro.post('/', async (req, res) => {
             });
         });
     } */
-    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
     // Insertar el usuario en la base de datos
     await pool.query(
         'INSERT INTO usuarios (user_email, contraseña, user_nombre) VALUES (?, ?, ?)',
-        [user_email, password, user_nombre || null] //hashedPassword, user_nombre || null]
+        [user_email, hashedPassword, user_nombre || null]  //password, user_nombre || null] //
     );
     res.status(201).json({ message: 'Usuario registrado exitosamente' });
     } catch (error) {
