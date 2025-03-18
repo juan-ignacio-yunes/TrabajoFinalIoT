@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'creacion',
-    loadChildren: () => import('./creacion/creacion.module').then( m => m.RegistroPageModule),
+    loadChildren: () => import('./creacion/creacion.module').then( m => m.CreacionPageModule),
     canActivate: [AuthGuard]
   },
 

@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   templateUrl: './creacion.page.html',
   styleUrls: ['./creacion.page.scss'],
 })
-export class RegistroPage {
+export class CreacionPage {
 
   // Objeto que se enlaza con el form (vía [(ngModel)])
   formData = {
