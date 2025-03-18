@@ -25,8 +25,8 @@ const routerUserReg = express.Router()
 routerUserReg.use(bodyParser.urlencoded({ extended: true }));
 routerUserReg.use(bodyParser.json());
 
-routerUserReg.get('/registro', (req, res) => {
-    res.sendFile(__dirname + '/registro.html'); 
+routerUserReg.get('/creacion', (req, res) => {
+    res.sendFile(__dirname + '/creacion.html'); 
   });
 
 

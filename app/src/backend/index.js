@@ -12,7 +12,7 @@ const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos
 const routerMascotas = require('./routes/mascotas');
 const { routerUser, routerUserReg } = require('./routes/usuarios');
 const routerMediciones = require('./routes/mediciones');
-const { routerLogin, routerRegistro } = require('./routes/registro');
+const { routerLogin, routerCreacion } = require('./routes/creacion');
 
 const YOUR_SECRET_KEY = 'mi llave';
 
@@ -56,7 +56,7 @@ const authenticator = function (req, res, next) {
 //=======[ Main module code ]==================================================
 
 // Definir rutas en orden lógico
-app.use('/registro', routerRegistro);
+app.use('/creacion', routerCreacion);
 app.use('/login', routerLogin);
 app.use('/dispositivos', routerDispositivos);
 app.use('/dispositivos', routerDispositivo);

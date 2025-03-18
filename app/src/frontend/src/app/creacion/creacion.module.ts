@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { RegistroPageRoutingModule } from './registro-routing.module';
-import { RegistroPage } from './registro.page';
+import { RegistroPageRoutingModule } from './creacion-routing.module';
+import { RegistroPage } from './creacion.page';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -15,6 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
     RegistroPageRoutingModule,
     HttpClientModule
   ],
-  declarations: [RegistroPage]
+  declarations: [CreacionPage]
 })
 export class RegistroPageModule {}
