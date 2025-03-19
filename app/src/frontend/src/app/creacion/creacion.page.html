@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="onSubmit()" #registroForm="ngForm">
+  <form (ngSubmit)="onSubmit()" #creacionForm="ngForm">
 
     <ion-item>
       <ion-input 
@@ -30,7 +30,7 @@
       <ion-input label="Nombre" type="text" [(ngModel)]="formData.user_nombre" name="user_nombre"></ion-input>
     </ion-item>
 
-    <ion-button expand="full" type="submit" [disabled]="registroForm.invalid">
+    <ion-button expand="full" type="submit" [disabled]="creacionForm.invalid">
       Registrarse
     </ion-button>
 

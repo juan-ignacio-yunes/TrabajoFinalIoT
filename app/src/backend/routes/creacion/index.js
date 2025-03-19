@@ -2,10 +2,13 @@ const express = require('express');
 const pool = require('../../mysql-connector');
 const bcrypt = require('bcrypt'); // Para hashear passwords
 const validator = require('validator'); // Para validar emails
+const jwt = require('jsonwebtoken');
 
 // ----- login de usuarios ----- //
 
 const routerLogin = express.Router();
+const YOUR_SECRET_KEY='mi llave';
+var testUser = {username: 'test', password: '1234'}
 
 routerLogin.post('/', (req, res) => {
     if (req.body) {
@@ -35,6 +38,7 @@ const routerCreacion = express.Router();
 const SALT_ROUNDS = 10; // Seguridad para el hash
 
 routerCreacion.post('/', (req, res) => {
+    console.log("Solicitud recibida:", req.body);
     try {
         const { user_email, password, user_nombre } = req.body;
 
