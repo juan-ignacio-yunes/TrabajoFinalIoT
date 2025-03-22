@@ -1,11 +1,15 @@
 //=======[ Settings, Imports & Data ]==========================================
-
 const PORT = 3000;
 
+//---- para los endopints -----
 const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const pool = require('./mysql-connector');
+//---- para los websockes -----
+const http = require("http");
+const setupWebSocket = require("./src/socket");
+
 
 // Routers
 const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos');
@@ -79,4 +83,18 @@ app.get('/', (req, res) => {
 // Iniciar servidor
 app.listen(PORT, function() {
     console.log(`NodeJS API running correctly on http://localhost:${PORT}`);
+});
+
+
+// ----- levantar websockets -----
+const server = http.createServer(app);
+
+// Setup WebSocket
+const { io, deviceSockets } = setupWebSocket(server);
+
+// Guardar en app locals para acceder desde rutas
+app.locals.deviceSockets = deviceSockets;
+
+server.listen(3000, () => {
+  console.log("Servidor corriendo en puerto 3000");
 });
