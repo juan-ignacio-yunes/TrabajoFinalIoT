@@ -118,8 +118,8 @@ CREATE TABLE `mediciones` (
 --
 
 INSERT INTO `mediciones` (`pet_id`, `fechaHora_medicion`, `valor`) VALUES
-(2 ,'2020-11-26 21:01:41', '{"peso_animal":51.01, "peso_racion":502}'),
-(2, '2020-11-26 22:02:06', '{"peso_animal":50.65, "peso_racion":499}');
+(2 ,'2025-03-20 21:01:41', '{"peso_animal":51.01, "peso_racion":502}'),
+(2, '2025-03-20 22:02:06', '{"peso_animal":50.65, "peso_racion":499}');
 
 -- --------------------------------------------------------
 
