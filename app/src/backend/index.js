@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const pool = require('./mysql-connector');
 //---- para los websockes -----
 const http = require("http");
-const setupWebSocket = require("./websockets/socket");
+const setupWebSocket = require("./websockets/websocket");
 
 
 // Routers
@@ -95,5 +95,5 @@ app.get('/', (req, res) => {
 });
 */
 server.listen(PORT, function() {
-    console.log(`NodeJS API & Wbesocket running correctly on http://localhost:${PORT}`);
+    console.log(`Servidor NodeJS API & Wbesocket running correctly on http://localhost:${PORT}`);
 });
