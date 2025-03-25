@@ -80,7 +80,7 @@ app.use('/desvincular', routerDispositivo); //desvincular alimentador // creo qu
 app.use('/mascotas', routerMascotas);
 app.use('/mediciones', routerMediciones);
 //relacionadas a la raciones
-app.use('/racion', routerCrearRaciones); // tanto para crear como para eliminar raciones
+app.use('/racion', routerRaciones); // tanto para crear como para eliminar raciones
 
 // Ruta protegida de prueba
 app.get('/prueba', authenticator, function(req, res) {
