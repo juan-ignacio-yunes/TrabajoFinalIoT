@@ -14,7 +14,7 @@ const setupWebSocket = require("./websockets/websocket");
 // Routers
 const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos');
 const routerMascotas = require('./routes/mascotas');
-const { routerCreacionUser, routerLogin, routerUser } = require('./routes/usuarios');
+const { routerLogin, routerUser } = require('./routes/usuarios');
 const routerMediciones = require('./routes/mediciones');
 const { routerRaciones} = require('./routes/raciones');
 const { routerAlimentar } = require('./routes/alimentar');

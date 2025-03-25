@@ -33,7 +33,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'creacion',
+    path: 'crearUsuario',
     loadChildren: () => import('./creacion/creacion.module').then( m => m.CreacionPageModule),
     canActivate: [AuthGuard]
   },

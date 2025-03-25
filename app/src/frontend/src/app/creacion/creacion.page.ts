@@ -22,7 +22,7 @@ export class CreacionPage {
 
   onSubmit() {
     console.log("🚀 Enviando solicitud al backend...");
-    this.http.post('http://localhost:3000/creacion', this.formData)
+    this.http.post('http://localhost:8000/usuarios', this.formData)
       .subscribe({
         next: (res) => {
           console.log('Usuario creado', res);
