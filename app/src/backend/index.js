@@ -86,12 +86,14 @@ app.get('/prueba', authenticator, function(req, res) {
 });
 
 app.get('/', (req, res) => {
-    res.send('¡Servidor funcionando correctamente!');
+    res.send('¡Servidor backend funcionando correctamente!');
 });
 
 // Iniciar servidor
-app.listen(PORT, function() {
+/*app.listen(PORT, function() {
     console.log(`NodeJS API & Wbesocket running correctly on http://localhost:${PORT}`);
 });
-
-
+*/
+server.listen(PORT, function() {
+    console.log(`NodeJS API & Wbesocket running correctly on http://localhost:${PORT}`);
+});

@@ -1,5 +1,5 @@
 const socketIo = require("socket.io");
-const { handleDeviceEvents } = require("./deviceController");
+const { handleDeviceEvents, deviceSockets } = require('./deviceController');
 
 const deviceSockets = new Map(); // device_id -> socket
 
