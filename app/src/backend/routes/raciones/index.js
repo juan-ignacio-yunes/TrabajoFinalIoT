@@ -1,35 +1,58 @@
 const express = require('express')
 const pool = require('../../mysql-connector')
 
-const bodyParser = require('body-parser');
-const bcrypt = require('bcrypt'); // Para hashear passwords
+const routerRaciones = express.Router()
 
-//------ usuario ------
+routerRaciones.post('/', async (req, res) => {
+  const { deviceId, horario, cantidad } = req.body;
 
-const routerUser = express.Router()
+  if (!deviceId || !horario || !cantidad) {
+    return res.status(400).json({ message: "Faltan datos requeridos" });
+  }
 
-routerUser.get('/', function (req, res) {
-    pool.query('Select ration_id, racion_peso_gr, racion_hora from raciones where mascota_id = relation_id', function(err, result, fields) {
-        if (err) {
-            res.send(err).status(400);
-            return;
-        }
-        res.send(result);
-    });
-})
+  try {
+    await pool.query(
+      "INSERT INTO raciones (device_id, horario, cantidad) VALUES (?, ?, ?)",
+      [deviceId, horario, cantidad]
+    );
 
-//------ registrar usuarios ------
+    const socket = req.app.locals.deviceSockets.get(deviceId);
+    if (socket) {
+      socket.emit("update_raciones");
+      console.log(`📡 update_raciones enviado a ${deviceId}`);
+    }
 
-const routerUserReg = express.Router()
+    return res.status(201).json({ message: "Ración creada" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Error al crear ración" });
+  }
+});
 
-routerUserReg.use(bodyParser.urlencoded({ extended: true }));
-routerUserReg.use(bodyParser.json());
+routerRaciones.delete('/', async (req, res) => {
+  const { racionId, deviceId } = req.body;
 
-routerUserReg.get('/creacion', (req, res) => {
-    res.sendFile(__dirname + '/creacion.html'); 
-  });
+  if (!racionId || !deviceId) {
+    return res.status(400).json({ message: "Faltan datos requeridos" });
+  }
 
+  try {
+    await pool.query(
+      "DELETE FROM raciones WHERE id = ?",
+      [racionId]
+    );
 
-//------ export routers ------
+    const socket = req.app.locals.deviceSockets.get(deviceId);
+    if (socket) {
+      socket.emit("update_raciones");
+      console.log(`📡 update_raciones enviado a ${deviceId}`);
+    }
 
-module.exports = {routerUser, routerUserReg}
+    return res.status(200).json({ message: "Ración eliminada" });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ message: "Error al eliminar ración" });
+  }
+});
+
+module.exports = { routerRaciones };

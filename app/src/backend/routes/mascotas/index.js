@@ -31,7 +31,7 @@ routerMascota.get('/', async (req, res) => {
     const query = `
       SELECT m.*
       FROM mascotas m
-      JOIN relaciones r ON m.pet_id = r.pet_id
+      INNER JOIN relaciones r ON m.pet_id = r.pet_id
       WHERE r.user_id = ?
     `;
     const [rows] = await db.query(query, [user_id]);

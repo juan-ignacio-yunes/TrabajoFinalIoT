@@ -14,10 +14,10 @@ const setupWebSocket = require("./websockets/websocket");
 // Routers
 const { routerDispositivos, routerDispositivo } = require('./routes/dispositivos');
 const routerMascotas = require('./routes/mascotas');
-const { routerUser, routerUserReg } = require('./routes/usuarios');
+const { routerCreacionUser, routerLogin, routerUser } = require('./routes/usuarios');
 const routerMediciones = require('./routes/mediciones');
-const { routerLogin, routerCreacion } = require('./routes/creacion');
-
+const { routerRaciones} = require('./routes/raciones');
+// Clave secreta para JWT
 const YOUR_SECRET_KEY = 'mi llave';
 
 // Configuración global de CORS
@@ -68,16 +68,19 @@ const { io, deviceSockets } = setupWebSocket(server);
 app.locals.deviceSockets = deviceSockets;
 
 
-// Definir rutas en orden lógico
-app.use('/creacion', routerCreacion);
-app.use('/login', routerLogin);
-app.use('/dispositivos', routerDispositivos);
-app.use('/dispositivos', routerDispositivo);
+//Rutas agrupadas según funcionalidad
+//relacionadas al usuario
+app.use('/login', routerLogin); //login de usuario
+app.use('/usuarios', routerUser); //obtener usuario
+//relacionadas al alimentador
+app.use('/dispositivos', routerDispositivos); //obtener todos los dispositivos
+app.use('/dispositivo', routerDispositivo); // obtener dispositivo por id
+app.use('/desvincular', routerDispositivo); //desvincular alimentador // creo que estoy siendo redundante con el anterior porque uno es get y el otro post
+//relacionadas a la mascota
 app.use('/mascotas', routerMascotas);
-app.use('/usuarios', routerUser);
-app.use('/usuarios', routerUserReg);
 app.use('/mediciones', routerMediciones);
-//app.use('/raciones', routerRaciones);
+//relacionadas a la raciones
+app.use('/racion', routerCrearRaciones); // tanto para crear como para eliminar raciones
 
 // Ruta protegida de prueba
 app.get('/prueba', authenticator, function(req, res) {
