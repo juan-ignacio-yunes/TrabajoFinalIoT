@@ -17,7 +17,7 @@ const routerMascotas = require('./routes/mascotas');
 const { routerCreacionUser, routerLogin, routerUser } = require('./routes/usuarios');
 const routerMediciones = require('./routes/mediciones');
 const { routerRaciones} = require('./routes/raciones');
-const { alimentar } = require('./routes/alimentar');
+const { routerAlimentar } = require('./routes/alimentar');
 
 // Clave secreta para JWT
 const YOUR_SECRET_KEY = 'mi llave';
@@ -84,7 +84,7 @@ app.use('/mediciones', routerMediciones);
 //relacionadas a la raciones
 app.use('/racion', routerRaciones); // tanto para crear como para eliminar raciones
 //enviar orden de alimentar
-app.use('/alimentar', alimentar);
+app.use('/alimentar', routerAlimentar);
 
 // Ruta protegida de prueba
 app.get('/prueba', authenticator, function(req, res) {

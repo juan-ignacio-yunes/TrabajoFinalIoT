@@ -1,3 +1,8 @@
+const express = require('express')
+const pool = require('../../mysql-connector')
+
+const routerAlimentar = express.Router();
+
 function alimentar(req, res) {
   const { deviceId } = req.body;
 
@@ -9,7 +14,8 @@ function alimentar(req, res) {
   } else {
     return res.status(404).json({ message: "Estación no conectada" });
   }
-}
-  
-module.exports = { alimentar };
-  
+};
+
+routerAlimentar.post('/', alimentar);
+
+module.exports = { routerAlimentar };
