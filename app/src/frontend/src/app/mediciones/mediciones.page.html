@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <!-- Contenedor para los 2 inputs de fehca y el botón de inicio -->
+  <!-- Contenedor para los 2 inputs de fecha y el botón de inicio -->
   <div style="display: flex; gap: 1rem; padding: 1rem; align-items: center; justify-content: space-between; max-width: 80%; margin: auto;">
     
     <!-- Botón de Inicio alineado al margen izquierdo -->
@@ -14,40 +14,41 @@
       Inicio
     </ion-button>
     
-    <!-- Fecha Inicio (auto-width) -->
+    <!-- Fecha Inicio -->
     <ion-item style="width: auto;">
-      <ion-label>Desde</ion-label>
+      <ion-label position="stacked">Desde</ion-label>
       <ion-input 
         type="date"
         [(ngModel)]="fechaInicio"
         (ionChange)="actualizarFechas()"
-        legacy="true">
+        name="fechaInicio"
+        aria-label="Fecha de inicio">
       </ion-input>
     </ion-item>
     
-    <!-- Fecha Fin (auto-width) -->
+    <!-- Fecha Fin -->
     <ion-item style="width: auto;">
-      <ion-label>Hasta</ion-label>
+      <ion-label position="stacked">Hasta</ion-label>
       <ion-input 
         type="date"
         [(ngModel)]="fechaFin"
         (ionChange)="actualizarFechas()"
-        legacy="true">
+        name="fechaFin"
+        aria-label="Fecha de fin">
       </ion-input>
     </ion-item>
+
   </div>
 
   <!-- Grid para centrar el gráfico y usar 10 de 12 columnas -->
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col size="10">
-        <!-- Card para contener el canvas -->
         <ion-card>
           <ion-card-header>
             <ion-card-title>Gráfico de Peso</ion-card-title>
           </ion-card-header>
           <ion-card-content style="text-align: center;">
-            <!-- Canvas con id="myChart" (IMPORTANTE) -->
             <canvas id="myChart" style="max-width: 100%;"></canvas>
           </ion-card-content>
         </ion-card>
