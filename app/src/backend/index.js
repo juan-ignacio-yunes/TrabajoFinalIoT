@@ -73,7 +73,7 @@ app.locals.deviceSockets = deviceSockets;
 //Rutas agrupadas según funcionalidad
 //relacionadas al usuario
 app.use('/login', routerLogin); //login de usuario
-app.use('/usuarios', routerUser); //obtener usuario
+app.use('/usuario', routerUser); //obtener usuario
 //relacionadas al alimentador
 app.use('/dispositivos', routerDispositivos); //obtener todos los dispositivos
 app.use('/dispositivo', routerDispositivo); // obtener dispositivo por id

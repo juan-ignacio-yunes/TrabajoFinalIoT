@@ -68,7 +68,7 @@ export class CreacionPage {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    this.http.post('http://localhost:8000/usuarios', this.formData, { headers })
+    this.http.post('http://localhost:8000/usuario', this.formData, { headers })
       .subscribe({
         next: (res) => {
           console.log('Usuario creado', res);
