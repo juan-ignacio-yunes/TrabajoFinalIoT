@@ -9,10 +9,10 @@ const jwt = require('jsonwebtoken'); // Para autenticación
 // ----- login de usuarios ----- //
 
 const routerLogin = express.Router();
-const YOUR_SECRET_KEY='mi llave';
-var testUser = {username: 'test', password: '1234'}
+const YOUR_SECRET_KEY = 'mi llave';
+var testUser = { username: 'test', password: '1234' }
 
-routerLogin.post('/', (req, res) => {
+/* routerLogin.post('/', (req, res) => {
     if (req.body) {
         var userData = req.body;
 
@@ -32,9 +32,62 @@ routerLogin.post('/', (req, res) => {
             errorMessage: 'Se requiere un usuario y contraseña'
         });
     }
+}); */
+
+routerLogin.post('/', (req, res) => {
+    try {
+        console.log("Solicitud recibida:", req.body);
+        const { user_email, password } = req.body;
+
+        // Validar campos
+        if (!user_email || !password) {
+            return res.status(400).json({ error: 'Email y contraseña son obligatorios' });
+        }
+
+        // 1. Buscar el usuario en la base de datos
+        const queryBuscaUsuario = 'SELECT user_id, user_email, contraseña FROM usuarios WHERE user_email = ?'
+        pool.query(queryBuscaUsuario, [user_email], async (err, rows) => {
+            if (err) {
+                console.error("Error en la consulta a la base de datos:", err);
+                return res.status(500).json({ error: 'Error interno en la base de datos' });
+            }
+
+            // Verificar que exista el usuario
+            if (rows.length === 0) {
+                return res.status(401).json({ error: 'Credenciales inválidas' });
+            }
+
+            const user = rows[0];
+
+            // 2. Comparar la contraseña que ingresa el usuario con el hash almacenado
+            const match = await bcrypt.compare(password, user.contraseña);
+            if (!match) {
+                return res.status(401).json({ error: 'Credenciales inválidas' });
+            }
+
+            // 3. Generar el JWT con la información necesaria (user_id, por ejemplo)
+            const payload = { user_id: user.user_id };
+            const token = jwt.sign(payload, YOUR_SECRET_KEY, {
+                expiresIn: '1h', // Ajusta la expiración a tu gusto
+            });
+
+            // 4. Enviar respuesta con token
+            return res.status(200).json({
+                message: 'Login exitoso',
+                token: token,
+                // Puedes enviar más datos si lo necesitas (por ejemplo, user_id, nombre, etc.)
+                user: {
+                    user_id: user.user_id,
+                    user_email: user.user_email,
+                },
+            });
+        }
+        );
+    } catch (error) {
+        console.error("Error al procesar el login:", error);
+        return res.status(500).json({ error: 'Error interno del servidor' });
+    }
 });
-
-
 //------ crear usuario ------
 
 /*const routerUserReg = express.Router()
@@ -118,7 +171,7 @@ routerUser.post('/', (req, res) => {
 //------ obtener usuario ------
 
 routerUser.get('/', function (req, res) {
-    pool.query('Select * from usuarios where user = ?', function(err, result, fields) {
+    pool.query('Select * from usuarios where user = ?', function (err, result, fields) {
         if (err) {
             res.send(err).status(400);
             return;
@@ -130,7 +183,7 @@ routerUser.get('/', function (req, res) {
 //------ eliminar usuario ------
 
 routerUser.delete('/', function (req, res) {
-    pool.query('DELETE FROM usuarios WHERE user = ?', function(err, result, fields) {
+    pool.query('DELETE FROM usuarios WHERE user = ?', function (err, result, fields) {
         if (err) {
             res.send(err).status(400);
             return;
@@ -141,4 +194,4 @@ routerUser.delete('/', function (req, res) {
 
 //------ export routers ------
 
-module.exports = {routerLogin, routerUser};
+module.exports = { routerLogin, routerUser };

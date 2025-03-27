@@ -8,7 +8,7 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./login.scss'],
 })
 export class LoginPage {
-  login = { username: '', password: '' };
+  login = { user_email: '', password: '' };
   submitted = false;
 
   constructor(private _loginService: LoginService) { }
@@ -17,7 +17,7 @@ export class LoginPage {
     this.submitted = true
   
     if (form.valid) {
-      this._loginService.login(this.login.username, this.login.password)
+      this._loginService.login(this.login.user_email, this.login.password)
     } 
   }
 }

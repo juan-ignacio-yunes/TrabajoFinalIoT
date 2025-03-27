@@ -47,17 +47,19 @@ app.use(myLogger);
 // Middleware de autenticación
 const authenticator = function (req, res, next) {
     let autHeader = req.headers.authorization || '';
-    if (autHeader.startsWith('Bearer ')) {
-        token = autHeader.split(' ')[1];
-    } else {
-        return res.status(401).send({ message: 'Se requiere un token de tipo Bearer' });
+    if (!autHeader.startsWith('Bearer ')) {
+        return res.status(401).json({ message: 'Se requiere un token de tipo Bearer' });
     }
-    jwt.verify(token, YOUR_SECRET_KEY, function(err) {
+    
+    const token = autHeader.split(' ')[1];
+    jwt.verify(token, YOUR_SECRET_KEY, (err, decoded) => {
         if (err) {
-            return res.status(403).send({ message: 'Token inválido' });
+            return res.status(403).json({ message: 'Token inválido' });
         }
+        // Guardas el payload decodificado (si te interesa acceder en rutas posteriores)
+        req.decoded = decoded;
+        next();
     });
-    next();
 };
 
 

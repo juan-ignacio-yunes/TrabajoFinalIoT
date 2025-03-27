@@ -12,9 +12,9 @@ export class LoginService {
 
   constructor(private _http: HttpClient, private _router: Router) { }
 
-  async login (username: string, password: string) {
+  async login (user_email: string, contraseña: string) {
     let response = await firstValueFrom(this._http.post<any>(
-      this.uri + '/login', {username: username, password: password}
+      this.uri + '/login', {user_email: user_email, password: contraseña}
     ))
     if (response !== null) {
       this._router.navigate(['/home'])
