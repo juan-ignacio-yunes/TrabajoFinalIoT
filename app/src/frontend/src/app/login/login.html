@@ -41,6 +41,14 @@
       </ion-list>
 
       <ion-row>
+        <ion-col >
+            <ion-text color="danger" *ngIf="errorMessage">
+                <p class="ion-padding-start">{{ errorMessage }}</p>
+              </ion-text>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
           <ion-col>
               <ion-button (click)="onLogin(loginForm)" type="submit" expand="block">Login</ion-button>
           </ion-col>
