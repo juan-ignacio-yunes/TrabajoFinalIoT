@@ -17,8 +17,9 @@ export class LoginService {
       this.uri + '/login', {user_email: user_email, password: contraseña}
     ))
     if (response !== null) {
+      localStorage.setItem('token', response.token); //guarda el token en el local storage
+      localStorage.setItem('user_id', response.user.user_id); //guarda user_id en el local storage
       this._router.navigate(['/home'])
-      localStorage.setItem('token', response.token)
     }
   }
 
